@@ -4,6 +4,7 @@ var Orden = require('../models/orden');
 var ElementoOrden = require('../models/elementoOrden');
 var mongoose = require('mongoose');
 const { notifyOrderCreated } = require('../broker');
+const faker = require('faker');
 
 var controller = {
 
