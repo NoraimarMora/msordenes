@@ -11,5 +11,5 @@ module.exports = {
   
   DB_PORT: process.env.DB_PORT,
 
-  BROKER_URL: process.env.BROKER_URL,
+  MB_URL: process.env.MB_URL,
 };

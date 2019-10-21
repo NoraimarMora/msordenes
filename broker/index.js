@@ -1,7 +1,8 @@
 const amqplib = require('amqplib');
 
-const { BROKER_URL } = require('../config');
+const { MB_URL } = require('../config');
 
+const queue = 'order-created';
 let brokerConnection = null;
 
 const initBroker = () => new Promise(async (resolve, reject) => {
@@ -14,9 +15,9 @@ const initBroker = () => new Promise(async (resolve, reject) => {
   }
 });
 
-const notifyOrderCreated = async (queue, order) => {
+const notifyOrderCreated = async (order) => {
   if (!brokerConnection) {
-    brokerConnection = await initBroker(BROKER_URL);
+    brokerConnection = await initBroker(MB_URL);
   }
 
   await brokerConnection.createChannel()
