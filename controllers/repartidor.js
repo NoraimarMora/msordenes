@@ -8,7 +8,7 @@ var controller = {
         var parameters = request.body
         var repartidor = new Repartidor();
 
-        repartidor.delivery_man_id = parameters.delivery_man_id;
+        repartidor._id = parameters.delivery_man_id;
         repartidor.first_name = parameters.first_name;
         repartidor.last_name = parameters.last_name;
         repartidor.profile_image = parameters.profile_image;
@@ -29,7 +29,6 @@ var controller = {
 
             var delivery_man = {
                 id: repartidorStored._id,
-                delivery_man_id: repartidorStored.delivery_man_id,
                 profile_image: repartidorStored.profile_image,
                 first_name: repartidorStored.first_name,
                 last_name: repartidorStored.last_name
@@ -68,7 +67,6 @@ var controller = {
 
             var delivery_man = {
                 id: repartidor._id,
-                delivery_man_id: repartidor.delivery_man_id,
                 profile_image: repartidor.profile_image,
                 first_name: repartidor.first_name,
                 last_name: repartidor.last_name
@@ -100,7 +98,6 @@ var controller = {
             repartidores.map((repartidor) => {
                 delivery_men.push({
                     id: repartidor._id,
-                    delivery_man_id: repartidor.delivery_man_id,
                     profile_image: repartidor.profile_image,
                     first_name: repartidor.first_name,
                     last_name: repartidor.last_name
@@ -140,7 +137,6 @@ var controller = {
 
             var delivery_man = {
                 id: repartidorUpdated._id,
-                delivery_man_id: repartidorUpdated.delivery_man_id,
                 profile_image: repartidorUpdated.profile_image,
                 first_name: repartidorUpdated.first_name,
                 last_name: repartidorUpdated.last_name
@@ -172,7 +168,6 @@ var controller = {
 
             var delivery_man = {
                 id: repartidorRemoved._id,
-                delivery_man_id: repartidorRemoved.delivery_man_id,
                 profile_image: repartidorRemoved.profile_image,
                 first_name: repartidorRemoved.first_name,
                 last_name: repartidorRemoved.last_name
