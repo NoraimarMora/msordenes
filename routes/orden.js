@@ -7,7 +7,8 @@ var OrdenController = require('../controllers/orden');
 router.post('/', OrdenController.saveOrden);
 router.get('/:id', OrdenController.getOrden);
 router.get('/', OrdenController.getOrdenes);
-router.put('/update/:id', OrdenController.updateOrden);
+router.put('/delivery/:id', OrdenController.assignDeliveryMan);
+router.put('/update/:id', OrdenController.updateOrderStatus);
 router.delete('/delete/:id', OrdenController.deleteOrden);
 
 module.exports = router;

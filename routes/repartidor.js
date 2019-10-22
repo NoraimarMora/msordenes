@@ -6,7 +6,7 @@ var RepartidorController = require('../controllers/repartidor');
 
 router.post('/', RepartidorController.saveRepartidor);
 router.get('/:id', RepartidorController.getRepartidor);
-router.get('/', RepartidorController.getRepartidors);
+router.get('/', RepartidorController.getRepartidores);
 router.put('/update/:id', RepartidorController.updateRepartidor);
 router.delete('/delete/:id', RepartidorController.deleteRepartidor);
 

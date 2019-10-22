@@ -7,12 +7,11 @@ var OrdenSchema = Schema({
     client_id: {type: Schema.Types.ObjectId, ref: 'Cliente', required: true},
     address: {type: Schema.Types.ObjectId, ref: 'Direccion'},
     phone: {type: String, default: ''},
-    delvery_man_id: {type: Schema.Types.ObjectId, ref: 'Repartidor', required: true},
+    delivery_man_id: {type: Schema.Types.ObjectId, ref: 'Repartidor', required: true},
     products: [{type: Schema.Types.ObjectId, ref: 'ElementoOrden'}],   
     payment_method: {type: String, required: true},
     total: {type: Number, required: true},
-    // status: {type: Schema.Types.ObjectId, ref: 'Estado', required: true},
-    status: {type: String, required: true},
+    status: {type: Schema.Types.ObjectId, ref: 'Estado', required: true},
     date_created: {type: Date, default: Date.now}
 });
 

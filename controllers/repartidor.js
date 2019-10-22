@@ -11,17 +11,34 @@ var controller = {
         repartidor.delivery_man_id = parameters.delivery_man_id;
         repartidor.first_name = parameters.first_name;
         repartidor.last_name = parameters.last_name;
+        repartidor.profile_image = parameters.profile_image;
 
         repartidor.save((error, repartidorStored) => {
             if (error) {
-                return response.status(500).send({error});
+                return response.status(500).send({
+                    status: 500,
+                    error
+                });
             } 
             if (!repartidorStored) {
-                return response.status(404).send({message: 'No se ha podido guardar el documento'});
+                return response.status(404).send({
+                    status: 404,
+                    message: 'No se ha podido guardar el documento'
+                });
             }
 
+            var delivery_man = {
+                id: repartidorStored._id,
+                delivery_man_id: repartidorStored.delivery_man_id,
+                profile_image: repartidorStored.profile_image,
+                first_name: repartidorStored.first_name,
+                last_name: repartidorStored.last_name
+            }
             
-            return response.status(200).send({repartidor: repartidorStored});
+            return response.status(200).send({
+                status: 200,
+                delivery_man: delivery_man
+            });
         });
     },
 
@@ -30,26 +47,36 @@ var controller = {
 
         if (repartidorId == null) {
             return response.status(404).send({
-                status: false, 
+                status: 404, 
+                message: 'Not found'
             });
         }
 
         Repartidor.findById(repartidorId).exec(function (error, repartidor) {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!repartidor) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var delivery_man = {
+                id: repartidor._id,
+                delivery_man_id: repartidor.delivery_man_id,
+                profile_image: repartidor.profile_image,
+                first_name: repartidor.first_name,
+                last_name: repartidor.last_name
+            }
+
             return response.status(200).send({
-                status: true,
-                repartidor: repartidor
+                status: 200,
+                delivery_man: delivery_man
             });
         });
     },
@@ -58,19 +85,30 @@ var controller = {
         Repartidor.find({}).exec((error, repartidores) => {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!repartidores) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
                 });
             }
 
+            var delivery_men = []
+
+            repartidores.map((repartidor) => {
+                delivery_men.push({
+                    id: repartidor._id,
+                    delivery_man_id: repartidor.delivery_man_id,
+                    profile_image: repartidor.profile_image,
+                    first_name: repartidor.first_name,
+                    last_name: repartidor.last_name
+                })
+            })
             return response.status(200).send({
-                status:true, 
-                repartidores: repartidores
+                status: 200, 
+                delivery_men: delivery_men
             });
         });
     },
@@ -82,25 +120,35 @@ var controller = {
 
         update.first_name = parameters.first_name;
         update.last_name = parameters.last_name;
+        update.profile_image = parameters.profile_image;
 
         Repartidor.findByIdAndUpdate(repartidor, update, {new: true}, (error, repartidorUpdated) => {
 
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
 
             if (!repartidorUpdated) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var delivery_man = {
+                id: repartidorUpdated._id,
+                delivery_man_id: repartidorUpdated.delivery_man_id,
+                profile_image: repartidorUpdated.profile_image,
+                first_name: repartidorUpdated.first_name,
+                last_name: repartidorUpdated.last_name
+            }
+
             return response.status(200).send({
-                status: true, 
-                repartidor: repartidorUpdated
+                status: 200, 
+                delivery_man: delivery_man
             });
         });
     },
@@ -111,19 +159,28 @@ var controller = {
         Repartidor.findByIdAndRemove(repartidorId, (error, repartidorRemoved) => {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!repartidorRemoved) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var delivery_man = {
+                id: repartidorRemoved._id,
+                delivery_man_id: repartidorRemoved.delivery_man_id,
+                profile_image: repartidorRemoved.profile_image,
+                first_name: repartidorRemoved.first_name,
+                last_name: repartidorRemoved.last_name
+            }
+
             return response.status(200).send({
-                status: true, 
-                repartidor: repartidorRemoved
+                status: 200, 
+                delivery_man: delivery_man
             });
         });
     } 

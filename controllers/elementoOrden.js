@@ -8,7 +8,7 @@ var controller = {
         var parameters = request.body
         var elementoOrden = new ElementoOrden();
 
-        elementoOrden.cart_id = parameters.cart_id;
+        elementoOrden.order_id = parameters.order_id;
         elementoOrden.product = parameters.product;
         elementoOrden.quantity = parameters.quantity;
         elementoOrden.unit_price = parameters.unit_price;
@@ -16,14 +16,31 @@ var controller = {
 
         elementoOrden.save((error, elementoOrdenStored) => {
             if (error) {
-                return response.status(500).send({error});
+                return response.status(500).send({
+                    status: 500,
+                    error
+                });
             } 
             if (!elementoOrdenStored) {
-                return response.status(404).send({message: 'No se ha podido guardar el documento'});
+                return response.status(404).send({
+                    status: 404,
+                    message: 'No se ha podido guardar el documento'
+                });
             }
 
+            var order_item = {
+                id: elementoOrdenStored._id,
+                order_id: elementoOrdenStored.order_id,
+                product: elementoOrdenStored.product,
+                quantity: elementoOrdenStored.quantity,
+                unit_price: elementoOrdenStored.unit_price,
+                features: elementoOrdenStored.features
+            }
             
-            return response.status(200).send({elementoOrden: elementoOrdenStored});
+            return response.status(200).send({
+                status: 200,
+                order_item: order_item
+            });
         });
     },
 
@@ -32,26 +49,36 @@ var controller = {
 
         if (elementoOrdenId == null) {
             return response.status(404).send({
-                status: false, 
+                status: 404, 
+                message: 'Not found'
             });
         }
 
         ElementoOrden.findById(elementoOrdenId).exec(function (error, elementoOrden) {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!elementoOrden) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
                 });
             }
 
+            var order_item = {
+                id: elementoOrden._id,
+                order_id: elementoOrden.order_id,
+                product: elementoOrden.product,
+                quantity: elementoOrden.quantity,
+                unit_price: elementoOrden.unit_price,
+                features: elementoOrden.features
+            }
+
             return response.status(200).send({
-                status: true,
-                elementoOrden: elementoOrden
+                status: 200,
+                order_item: order_item
             });
         });
     },
@@ -60,19 +87,33 @@ var controller = {
         ElementoOrden.find({}).exec((error, elementosOrden) => {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!elementosOrden) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var order_items = []
+
+            elementosOrden.map((elementoOrden) => {
+                order_items.push({
+                    id: elementoOrden._id,
+                    order_id: elementoOrden.order_id,
+                    product: elementoOrden.product,
+                    quantity: elementoOrden.quantity,
+                    unit_price: elementoOrden.unit_price,
+                    features: elementoOrden.features
+                })
+            })
+
             return response.status(200).send({
-                status:true, 
-                elementosOrden: elementosOrden
+                status: 200, 
+                order_items: order_items
             });
         });
     },
@@ -90,20 +131,30 @@ var controller = {
 
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
 
             if (!elementoOrdenUpdated) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var order_item = {
+                id: elementoOrdenUpdated._id,
+                order_id: elementoOrdenUpdated.order_id,
+                product: elementoOrdenUpdated.product,
+                quantity: elementoOrdenUpdated.quantity,
+                unit_price: elementoOrdenUpdated.unit_price,
+                features: elementoOrdenUpdated.features
+            }
+
             return response.status(200).send({
-                status: true, 
-                elementoOrden: elementoOrdenUpdated
+                status: 200, 
+                order_item: order_item
             });
         });
     },
@@ -114,19 +165,29 @@ var controller = {
         ElementoOrden.findByIdAndRemove(elementoOrdenId, (error, elementoOrdenRemoved) => {
             if (error) {
                 return response.status(500).send({
-                    status: false, 
+                    status: 500, 
                     error
                 });
             }
             if (!elementoOrdenRemoved) {
                 return response.status(404).send({
-                    status: false, 
+                    status: 404, 
+                    message: 'Not found'
                 });
             }
 
+            var order_item = {
+                id: elementoOrdenRemoved._id,
+                order_id: elementoOrdenRemoved.order_id,
+                product: elementoOrdenRemoved.product,
+                quantity: elementoOrdenRemoved.quantity,
+                unit_price: elementoOrdenRemoved.unit_price,
+                features: elementoOrdenRemoved.features
+            }
+
             return response.status(200).send({
-                status: true, 
-                elementoOrden: elementoOrdenRemoved
+                status: 200, 
+                order_item: order_item
             });
         });
     } 
