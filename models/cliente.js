@@ -8,7 +8,7 @@ var ClienteSchema = Schema({
     // _id: ID en Ms Usuarios
     first_name: {type: String, required: true},
     last_name: {type: String, required: true},
-    addresses: [{type: Schema.Types.MicroserviceId, ref: 'Direccion'}]
+    addresses: [{type: Schema.Types.ObjectId, ref: 'Direccion'}]
 });
 
 module.exports = mongoose.model('Cliente', ClienteSchema);
