@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var OrdenSchema = Schema({
     client_id: {type: Schema.Types.ObjectId, ref: 'Cliente', required: true},
+    store_id: {type: String, required: true},
     address: {type: Schema.Types.ObjectId, ref: 'Direccion'},
     phone: {type: String, default: ''},
     delivery_man_id: {type: Schema.Types.ObjectId, ref: 'Repartidor', required: true},

@@ -2,7 +2,12 @@
 
 var mongoose = require('mongoose');
 var app = require('./app');
-var {PORT, SERVER_HOSTNAME, DB_HOST, DB_PORT} = require('./config');
+var {
+  PORT,
+  SERVER_HOSTNAME,
+  DB_HOST,
+  DB_PORT,
+} = require('./config');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + DB_HOST + ':' + DB_PORT + '/ms_ordenes', { useNewUrlParser: true })
