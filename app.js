@@ -63,7 +63,7 @@ const subscriptions = [
 ];
 
 const start = async () => {
-  broker = await initBroker(MB_URL);
+  broker = await initBroker(BROKER_URL);
 
   await asyncForEach(subscriptions, async ({ queue, callback }) => {
     await broker.createChannel()
