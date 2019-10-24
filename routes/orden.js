@@ -7,6 +7,7 @@ var OrdenController = require('../controllers/orden');
 router.post('/', OrdenController.saveOrden);
 router.get('/:id', OrdenController.getOrden);
 router.get('/', OrdenController.getOrdenes);
+router.get('/cliente/:id', OrdenController.getOrdenByCliente);
 router.put('/delivery/:id', OrdenController.assignDeliveryMan);
 router.put('/update/:id', OrdenController.updateOrderStatus);
 router.delete('/delete/:id', OrdenController.deleteOrden);
