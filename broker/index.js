@@ -9,7 +9,7 @@ const initBroker = () => new Promise(async (resolve, reject) => {
     const connection = await amqplib.connect(url);
     resolve(connection);
   } catch (error) {
-    console.warning(error);
+    console.warn(error);
     reject(error);
   }
 });
@@ -25,9 +25,10 @@ const notifyOrderCreated = async (queue, order) => {
         const orderObj = JSON.stringify(order);
         ch.sendToQueue(queue, Buffer.from(orderObj));
       })
-    ).catch(console.warning);
+    ).catch(console.warn);
 }
 
 module.exports = {
   notifyOrderCreated,
+  initBroker
 };

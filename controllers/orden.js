@@ -15,7 +15,7 @@ var controller = {
         try {
             orden._id = new mongoose.Types.ObjectId()
             orden.client_id = parameters.client_id;
-            orden.store_id = parameters.store_id;
+            // orden.store_id = parameters.store_id;
             orden.delivery_man_id = parameters.delivery_man_id;
             orden.payment_method = parameters.payment_method;
             orden.address = parameters.address;
@@ -78,7 +78,7 @@ var controller = {
                     date_created: ordenStored.date_created
                 }
 
-                var ordenNotifyObj = {
+                /*var ordenNotifyObj = {
                     orderId: ordenStored._id,
                     storeId: ordenStored.store_id,
                     assignedCourierName: faker.name.findName(),
@@ -86,7 +86,7 @@ var controller = {
                         { name: 'Hamburguesa de queso', qty: faker.random.number(), img: 'https://img1.mashed.com/img/gallery/fast-food-hamburgers-ranked-worst-to-best/intro-1540401194.jpg' },
                         { name: 'Refresco', qty: faker.random.number(), img: 'https://secure.ce-tescoassets.com/assets/CZ/202/8594008040202/ShotType1_540x540.jpg' }
                     ]
-                }
+                }*/
 
                 /*
                   TODO: adapt `ordenNotifyObj` structure to be:
@@ -102,7 +102,7 @@ var controller = {
                   ```
                 */
 
-                notifyOrderCreated('task1', ordenNotifyObj);
+                // notifyOrderCreated('task1', ordenNotifyObj);
 
                 return response.status(200).send({
                     status: 200,
