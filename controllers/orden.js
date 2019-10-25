@@ -226,69 +226,73 @@ var controller = {
                 }
             })
             .populate('status')
-            .exec(function (error, orden) {
+            .exec(function (error, ordenes) {
             if (error) {
                 return response.status(500).send({
                     status: 500, 
                     error
                 });
             }
-            if (!orden) {
+            if (!ordenes) {
                 return response.status(404).send({
                     status: 404, 
                     message: 'Not found'
                 });
             }
+            
+            var orders = []
 
-            var products = []
+            ordenes.map((orden) => {
+                var products = []
 
-            orden.products.map((producto) => {
-                products.push({
-                    id: producto._id,
-                    order_id: producto.order_id,
-                    name: producto.product.name,
-                    image_url: producto.product.image_url,
-                    quantity: producto.quantity,
-                    unit_price: producto.unit_price,
-                    features: producto.features
+                orden.products.map((producto) => {
+                    products.push({
+                        id: producto._id,
+                        order_id: producto.order_id,
+                        name: producto.product.name,
+                        image_url: producto.product.image_url,
+                        quantity: producto.quantity,
+                        unit_price: producto.unit_price,
+                        features: producto.features
+                    })
+                })
+
+                orders.push({
+                    id: orden._id,
+                    client: {
+                        id: orden.client_id._id,
+                        first_name: orden.client_id.first_name,
+                        last_name: orden.client_id.last_name,
+                        addresses: orden.client_id.addresses
+                    },
+                    address: {
+                        id: orden.address._id,
+                        client_id: orden.address.client_id,
+                        latitude: orden.address.latitude,
+                        longitude: orden.address.longitude             
+                    },
+                    phone: orden.phone,
+                    delivery_man: {
+                        id: orden.delivery_man_id._id,
+                        first_name: orden.delivery_man_id.first_name,
+                        last_name: orden.delivery_man_id.last_name,
+                        profile_image: orden.delivery_man_id.profile_image
+                    },
+                    products: products,
+                    payment_method: orden.payment_method,
+                    total: orden.total,
+                    status: {
+                        id: orden.status._id,
+                        name: orden.status.name,
+                        color: orden.status.color
+                    },
+                    date_created: orden.date_created
                 })
             })
 
-            var order = {
-                id: orden._id,
-                client: {
-                    id: orden.client_id._id,
-                    first_name: orden.client_id.first_name,
-                    last_name: orden.client_id.last_name,
-                    addresses: orden.client_id.addresses
-                },
-                address: {
-                    id: orden.address._id,
-                    client_id: orden.address.client_id,
-                    latitude: orden.address.latitude,
-                    longitude: orden.address.longitude             
-                },
-                phone: orden.phone,
-                delivery_man: {
-                    id: orden.delivery_man_id._id,
-                    first_name: orden.delivery_man_id.first_name,
-                    last_name: orden.delivery_man_id.last_name,
-                    profile_image: orden.delivery_man_id.profile_image
-                },
-                products: products,
-                payment_method: orden.payment_method,
-                total: orden.total,
-                status: {
-                    id: orden.status._id,
-                    name: orden.status.name,
-                    color: orden.status.color
-                },
-                date_created: orden.date_created
-            }
-
             return response.status(200).send({
                 status: 200,
-                order: order
+                orders: orders
             });
         });
     },
