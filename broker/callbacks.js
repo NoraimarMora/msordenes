@@ -261,8 +261,7 @@ var callback = {
         var parameters = cart.cart;
         var orden = new Orden();
 
-        orden.client_id = parameters.client_id;
-        orden.delivery_man_id = parameters.delivery_man_id;
+        orden.client_id = parameters.client;
         orden.payment_method = parameters.payment_method;
         orden.address = parameters.address;
         orden.phone = parameters.phone;

@@ -8,7 +8,7 @@ var OrdenSchema = Schema({
     // store_id: {type: String, required: true},
     address: {type: Schema.Types.ObjectId, ref: 'Direccion'},
     phone: {type: String, default: ''},
-    delivery_man_id: {type: Schema.Types.ObjectId, ref: 'Repartidor', required: true},
+    delivery_man_id: {type: Schema.Types.ObjectId, ref: 'Repartidor'},
     products: [{type: Schema.Types.ObjectId, ref: 'ElementoOrden'}],   
     payment_method: {type: String, required: true},
     total: {type: Number, required: true},
