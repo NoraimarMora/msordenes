@@ -268,6 +268,7 @@ var callback = {
         orden.products = [];
         orden.status = parameters.status;
         orden.total = parameters.total;
+        orden.delivery_man_id = parameters.delivery_man_id;
 
         parameters.products.map((product) => {
             var element = new ElementoOrden();
