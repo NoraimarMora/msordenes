@@ -8,6 +8,7 @@ var { asyncForEach } = require('./utils');
 var { BROKER_URL } = require('./config');
 
 var app = express();
+var broker = null;
 
 // Cargar archivos de rutas
 var ordenRoutes = require('./routes/orden');
