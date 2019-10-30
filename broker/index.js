@@ -4,7 +4,7 @@ const { BROKER_URL } = require('../config');
 
 let brokerConnection = null;
 
-const initBroker = () => new Promise(async (resolve, reject) => {
+const initBroker = (url) => new Promise(async (resolve, reject) => {
   try {
     const connection = await amqplib.connect(url);
     resolve(connection);
